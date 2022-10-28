@@ -1,4 +1,5 @@
 ﻿using A.Services.Division;
+using A.Services.Division.Models;
 
 namespace A
 {
@@ -6,6 +7,7 @@ namespace A
     {
         public static void AddAppServices(this IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(DivisionModelProfile));
             services.AddDivisionService();
         }
     }

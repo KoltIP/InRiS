@@ -34,11 +34,13 @@ namespace B.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
+        [Route("getdata")]
         public async Task<IEnumerable<DivisionModel>> GetData()
         {
             var httpClient = _httpClientFactory.CreateClient();
 
-            string url = $"{Settings.ApiRoot}/v1/division";
+            string url = $"{Settings.ApiRoot}/division/getdata";
 
             var response = await httpClient.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
