@@ -21,39 +21,48 @@ namespace A.Controllers
             this.divisionService = divisionService;
         }
 
+        [HttpPost]
+        public async Task<DivisionModel> AddDivisionAsync(DivisionModel model)
+        {
+            return await divisionService.AddDivisions(model);
+        }
+
         [HttpGet("getdata")]
         public async Task<IEnumerable<DivisionModel>> GetDataAsync()
         {
+            return await divisionService.GetAllData();
+
             //var divisions = await divisionService.GetDivisions();
             //var response = mapper.Map<IEnumerable<DivisionModel>>(divisions);
             //return response;
-            return new List<DivisionModel>()
-            {
-                new DivisionModel()
-                {
-                    Name = "1",
-                    Status = A.Services.Division.Models.Status.Active,
-                    UpperName =null,
-                },
-                new DivisionModel()
-                {
-                    Name = "2",
-                    Status = A.Services.Division.Models.Status.Active,
-                    UpperName ="1",
-                },
-                new DivisionModel()
-                {
-                    Name = "3",
-                    Status = A.Services.Division.Models.Status.Active,
-                    UpperName ="1",
-                },
-                new DivisionModel()
-                {
-                    Name = "4",
-                    Status = A.Services.Division.Models.Status.Active,
-                    UpperName ="3",
-                },
-            };
+
+            //return new List<DivisionModel>()
+            //{
+            //    new DivisionModel()
+            //    {
+            //        Name = "1",
+            //        Status = A.Data.Entities.Status.Active,
+            //        UpperName =null,
+            //    },
+            //    new DivisionModel()
+            //    {
+            //        Name = "2",
+            //        Status = A.Data.Entities.Status.Active,
+            //        UpperName ="1",
+            //    },
+            //    new DivisionModel()
+            //    {
+            //        Name = "3",
+            //        Status =A.Data.Entities.Status.Active,
+            //        UpperName ="1",
+            //    },
+            //    new DivisionModel()
+            //    {
+            //        Name = "4",
+            //        Status = A.Data.Entities.Status.Active,
+            //        UpperName ="3",
+            //    },
+            //};
         }
     }
 }

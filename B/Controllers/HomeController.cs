@@ -18,10 +18,10 @@ namespace B.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {
@@ -35,8 +35,8 @@ namespace B.Controllers
         }
 
         [HttpGet]
-        [Route("getdata")]
-        public async Task<IEnumerable<DivisionModel>> GetData()
+        [Route("")]
+        public async Task<IActionResult> Index()
         {
             var httpClient = _httpClientFactory.CreateClient();
 
@@ -52,7 +52,7 @@ namespace B.Controllers
 
             var data = JsonSerializer.Deserialize<IEnumerable<DivisionModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<DivisionModel>();
 
-            return data;
+            return View(data);
         }
     }
 }
