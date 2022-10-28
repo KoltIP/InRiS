@@ -4,5 +4,6 @@
     {
         public string Name { get; set; } = string.Empty;
         public Status Status { get; set; }
+        public string UpperName { get; set; }
     }
 }
