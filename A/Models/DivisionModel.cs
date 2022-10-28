@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using A.Data.Entities;
+using AutoMapper;
 
 namespace A.Services.Division.Models
 {
@@ -14,6 +15,14 @@ namespace A.Services.Division.Models
         public DivisionModelProfile()
         {
             CreateMap<Data.Entities.Division, DivisionModel>();
+        }
+    }
+
+    public class DivisionProfile : Profile
+    {
+        public DivisionProfile()
+        {
+            CreateMap<DivisionModel,Data.Entities.Division>();
         }
     }
 }

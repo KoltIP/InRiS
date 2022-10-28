@@ -1,5 +1,6 @@
 using A;
 using A.Configurations.Cors;
+using A.Configurations.Mapper;
 using A.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+services.AddAppAutoMapper();
 
 services.AddAppServices();
 

@@ -4,7 +4,7 @@
     {
         public static IServiceCollection AddDivisionService(this IServiceCollection services)
         {
-            services.AddSingleton<IDivisionService, DivisionService>();
+            services.AddTransient<IDivisionService, DivisionService>();
 
             return services;
         }
