@@ -1,4 +1,4 @@
-﻿namespace A.Services.Division
+﻿namespace A.Services
 {
     public static class Bootstrapper
     {
