@@ -2,12 +2,13 @@
 
 namespace A.Models
 {
-    public class SerializeDivisionModelV2
+    public class SerializeDivisionModel
     {
         public string Name { get; set; } = null;
         public Status Status { get; set; }
         public string? ParentName { get; set; } = null;
-        public IEnumerable<SerializeDivisionModelV2> Divisions { get; set; } = null;
+        public SerializeDivisionModel Divisions { get; set; } = null;
+        //public IEnumerable<SerializeDivisionModel> Divisions { get; set; } = null;
     }
 }
 

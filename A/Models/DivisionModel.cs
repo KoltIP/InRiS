@@ -1,4 +1,5 @@
 ﻿using A.Data.Entities;
+using A.Models;
 using AutoMapper;
 
 namespace A.Services.Division.Models
@@ -23,6 +24,14 @@ namespace A.Services.Division.Models
         public DivisionProfile()
         {
             CreateMap<DivisionModel,Data.Entities.Division>();
+        }
+    }
+
+    public class ParseDivisionProfile : Profile
+    {
+        public ParseDivisionProfile()
+        {
+            CreateMap<SerializeDivisionModel, DivisionModel>();
         }
     }
 }
