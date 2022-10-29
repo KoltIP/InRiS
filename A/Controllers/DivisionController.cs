@@ -1,11 +1,10 @@
 ﻿using A.Services.Division.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System;
 using A.Services;
-using System.Reflection.Metadata;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using A.Models;
 
 namespace A.Controllers
 {
@@ -33,30 +32,22 @@ namespace A.Controllers
 
         [HttpPost]
         [Route("Sync")]
-        public DivisionModel SynchronizationAsync()
+        public  List<SerializeDivisionModelV2>/*async Task<DivisionModel>*/ SynchronizationAsync()
         {
-            DivisionModel model = new DivisionModel()
-            {
-                Name = "First",
-                Status = Data.Entities.Status.Active,
-                ParentName = null,
-                Parent = null,
-                Children = new List<Data.Entities.Division>()
-                {
-                    new Data.Entities.Division() {
-                        Name = "Second",
-                        Status = Data.Entities.Status.Active,
-                        ParentName = null,
-                        Parent = null,
-                    }
-                };
-            };
-            using (FileStream fs = new FileStream("Resources/TreeFile.json", FileMode.Open))
-            {
-                model = JsonSerializer.Deserialize<DivisionModel>(fs);                
-            }
-            return model;
+            return Parser();               
         }
+
+        private List<SerializeDivisionModelV2> Parser()
+        {
+            using (StreamReader r = new StreamReader("../A/Resources/TreeFile.json"))
+            {
+                string json = r.ReadToEnd();
+                List<SerializeDivisionModelV2> items = JsonConvert.DeserializeObject<List<SerializeDivisionModelV2>>(json);
+                return items;
+            }
+
+        }
+
 
         [HttpGet("getdata")]
         public async Task<IEnumerable<DivisionModel>> GetDataAsync()

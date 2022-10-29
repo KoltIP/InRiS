@@ -8,8 +8,6 @@ namespace A.Services.Division.Models
         public string Name { get; set; } = null;
         public Status Status { get; set; }
         public string? ParentName { get; set; } = null;
-        public Data.Entities.Division? Parent { get; set; }
-        public List<Data.Entities.Division>? Children { get; set; }
     }
 
     public class DivisionModelProfile : Profile
