@@ -5,6 +5,8 @@ using A.Services;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using A.Models;
+using Microsoft.AspNetCore.Http.Features;
+using System.Collections.Generic;
 
 namespace A.Controllers
 {
@@ -32,20 +34,35 @@ namespace A.Controllers
 
         [HttpPost]
         [Route("Sync")]
-        public  List<SerializeDivisionModelV2>/*async Task<DivisionModel>*/ SynchronizationAsync()
+        public  List<DivisionModel>/*async Task<DivisionModel>*/ SynchronizationAsync()
         {
             return Parser();               
         }
 
-        private List<SerializeDivisionModelV2> Parser()
+        private  List<DivisionModel> Parser()
         {
-            using (StreamReader r = new StreamReader("../A/Resources/TreeFile.json"))
+            List<SerializeDivisionModel> data;
+            using (StreamReader sr = new StreamReader("../A/Resources/TreeFile.json"))
             {
-                string json = r.ReadToEnd();
-                List<SerializeDivisionModelV2> items = JsonConvert.DeserializeObject<List<SerializeDivisionModelV2>>(json);
-                return items;
+                string json = sr.ReadToEnd();
+                data = JsonConvert.DeserializeObject<List<SerializeDivisionModel>>(json);
             }
+            List<DivisionModel> result = new List<DivisionModel>();
+            return result;
+        }
 
+
+        private List<DivisionModel> Converter(List<SerializeDivisionModel> source, List<DivisionModel> result)
+        {    
+            
+            foreach (var item in source)
+            {
+                if (source == null)
+                    return result;
+                List<DivisionModel> modelss = source.Select(division => mapper.Map<DivisionModel>(division));
+                result.Add(model);
+
+            }
         }
 
 
