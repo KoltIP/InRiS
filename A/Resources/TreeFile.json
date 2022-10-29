@@ -1,0 +1,36 @@
+[
+  {
+    "Name": "Alpha",
+    "Status": "Active",
+    "ParentName": null,
+    "Divisions": [
+      {
+        "Name": "Betta",
+        "Status": "Active",
+        "ParentName": "Alpha"
+      },
+      {
+        "Name": "Sigma",
+        "Status": "Active",
+        "ParentName": "Alpha"
+      }
+    ]
+  },
+  {
+    "Name": "Office1",
+    "Status": "Active",
+    "ParentName": null,
+    "Divisions": [
+      {
+        "Name": "Office2",
+        "Status": "Active",
+        "ParentName": "Office1"
+      },
+      {
+        "Name": "Office3",
+        "Status": "Active",
+        "ParentName": "Office1"
+      }
+    ]
+  }
+]

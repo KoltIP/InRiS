@@ -1,4 +1,4 @@
-﻿using A.Services.Division;
+﻿using A.Services;
 using A.Services.Division.Models;
 
 namespace A

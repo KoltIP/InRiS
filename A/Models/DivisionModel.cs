@@ -5,9 +5,9 @@ namespace A.Services.Division.Models
 {
     public class DivisionModel
     {
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = null;
         public Status Status { get; set; }
-        public string UpperName { get; set; }
+        public string? ParentName { get; set; } = null;
     }
 
     public class DivisionModelProfile : Profile

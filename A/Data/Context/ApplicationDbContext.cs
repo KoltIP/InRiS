@@ -9,7 +9,7 @@ namespace A.Data.Context
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : base(option)
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -19,8 +19,7 @@ namespace A.Data.Context
             modelBuilder.Entity<Division>().Property(x => x.Name).IsRequired();
             modelBuilder.Entity<Division>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Division>().Property(x => x.Status).IsRequired();
-
-            modelBuilder.Entity<Division>().HasOne(x => x.UpperDivision).WithMany(x => x.DownDivisions).HasForeignKey(x => x.UpperName).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Division>().HasOne(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentName).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

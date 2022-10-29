@@ -1,8 +1,10 @@
-﻿using A.Services.Division;
-using A.Services.Division.Models;
+﻿using A.Services.Division.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using A.Services;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using A.Models;
 
 namespace A.Controllers
 {
@@ -22,47 +24,35 @@ namespace A.Controllers
         }
 
         [HttpPost]
+        [Route("Add")]
         public async Task<DivisionModel> AddDivisionAsync(DivisionModel model)
         {
             return await divisionService.AddDivisions(model);
         }
 
+        [HttpPost]
+        [Route("Sync")]
+        public  List<SerializeDivisionModelV2>/*async Task<DivisionModel>*/ SynchronizationAsync()
+        {
+            return Parser();               
+        }
+
+        private List<SerializeDivisionModelV2> Parser()
+        {
+            using (StreamReader r = new StreamReader("../A/Resources/TreeFile.json"))
+            {
+                string json = r.ReadToEnd();
+                List<SerializeDivisionModelV2> items = JsonConvert.DeserializeObject<List<SerializeDivisionModelV2>>(json);
+                return items;
+            }
+
+        }
+
+
         [HttpGet("getdata")]
         public async Task<IEnumerable<DivisionModel>> GetDataAsync()
         {
-            return await divisionService.GetAllData();
-
-            //var divisions = await divisionService.GetDivisions();
-            //var response = mapper.Map<IEnumerable<DivisionModel>>(divisions);
-            //return response;
-
-            //return new List<DivisionModel>()
-            //{
-            //    new DivisionModel()
-            //    {
-            //        Name = "1",
-            //        Status = A.Data.Entities.Status.Active,
-            //        UpperName =null,
-            //    },
-            //    new DivisionModel()
-            //    {
-            //        Name = "2",
-            //        Status = A.Data.Entities.Status.Active,
-            //        UpperName ="1",
-            //    },
-            //    new DivisionModel()
-            //    {
-            //        Name = "3",
-            //        Status =A.Data.Entities.Status.Active,
-            //        UpperName ="1",
-            //    },
-            //    new DivisionModel()
-            //    {
-            //        Name = "4",
-            //        Status = A.Data.Entities.Status.Active,
-            //        UpperName ="3",
-            //    },
-            //};
+            return await divisionService.GetAllData();            
         }
     }
 }
