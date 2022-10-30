@@ -1,7 +1,7 @@
-﻿using A.Data.Entities;
+﻿using B.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace A.Data.Context
+namespace B.Data.Context
 {
     public class ApplicationDbContext : DbContext
     {
@@ -9,7 +9,7 @@ namespace A.Data.Context
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : base(option)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

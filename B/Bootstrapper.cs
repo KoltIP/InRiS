@@ -1,12 +1,11 @@
-﻿using A.Services;
-using A.Services.Division.Models;
+﻿using B.Services;
 
-namespace A
+namespace B
 {
     public static class Bootstrapper
     {
         public static void AddAppServices(this IServiceCollection services)
-        {            
+        {
             services.AddDivisionService();
         }
     }
