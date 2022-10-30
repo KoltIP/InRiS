@@ -3,11 +3,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
 
 <div>
     @if (Model != null)
@@ -22,7 +17,7 @@
                         @Html.DisplayNameFor(model => model.Status)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UpperName)
+                        @Html.DisplayNameFor(model => model.ParentName)
                     </th>                    
                 </tr>
             </thead>
@@ -38,7 +33,7 @@
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UpperName )
+                            @Html.DisplayFor(modelItem => item.ParentName)
                         </td>                   
                     </tr>
                 }
@@ -50,9 +45,14 @@
         <h2>Здесь пока пусто</h2>
     }
 
-    <a asp-action="GetData" class="btn btn-sm btn-success">
+    <a asp-action="Synchronization" class="btn btn-sm btn-success">
         <i class="fa-solid fa-plus">
-            Click
+            Synchronization
+        </i>
+    </a>
+    <a asp-action="Add" class="btn btn-sm btn-success">
+        <i class="fa-solid fa-plus">
+            Add
         </i>
     </a>
 </div>

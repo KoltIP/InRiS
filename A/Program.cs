@@ -1,8 +1,5 @@
 using A;
 using A.Configurations.Cors;
-using A.Configurations.Mapper;
-using A.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,14 +15,6 @@ builder.Services.AddSwaggerGen();
 
 var services = builder.Services;
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-services.AddAppAutoMapper();
-
-services.AddAppServices();
 
 var app = builder.Build();
 
