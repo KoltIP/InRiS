@@ -34,20 +34,6 @@ namespace B.Controllers
         }
 
         [HttpGet]
-        [Route("/Add")]
-        public async Task<IActionResult> Add()
-        {
-            DivisionModel model = new DivisionModel()
-            {
-                Name = "SND",
-                Status = Status.Active,
-                ParentName = "FST",
-            };
-            await divisionService.AddDivisions(model);
-            return View("Index");
-        }
-
-        [HttpGet]
         [Route("")]
         public async Task<IActionResult> Index()
         {
@@ -60,7 +46,8 @@ namespace B.Controllers
         public async Task<IActionResult> Synchronization()
         {
             await divisionService.Synchronization();
-            return View("Index");
+            var models = await divisionService.GetAllData();
+            return View("Index", models);
         }       
     }
 }
