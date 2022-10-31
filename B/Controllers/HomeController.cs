@@ -50,11 +50,11 @@ namespace B.Controllers
             return View("Index", models);
         }
 
-        [HttpPost("{search}")]
-        public async Task<IActionResult> Find([FromRoute]string search)
+        [HttpPost("Find/{search}")]
+        public async Task<IEnumerable<DivisionModel>> Find([FromRoute]string search)
         {
             var models = await divisionService.FindData(search);
-            return View("Index", models);
+            return models;
         }
     }
 }
