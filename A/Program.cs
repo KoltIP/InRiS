@@ -4,7 +4,9 @@ using A.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAppCors();
+//builder.Services.AddAppCors();
+
+builder.Services.AddCors();
 
 builder.Services.AddControllers();
 
@@ -31,7 +33,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAppCors();
+app.UseCors(builder => builder.WithOrigins("http://localhost:5031")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+
+//app.UseAppCors();
 
 app.MapControllers();
 

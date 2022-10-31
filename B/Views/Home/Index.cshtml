@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<script>
+    setTimeout(function () {
+        window.location.reload(1);
+    }, 3000);
+</script>
 
 <div>
     @if (Model != null)

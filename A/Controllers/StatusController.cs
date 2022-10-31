@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using A.Services;
 using A.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace A.Controllers
 {
