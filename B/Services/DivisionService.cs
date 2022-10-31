@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using B.Data.Context;
+using B.Data.Entities;
 using B.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -64,6 +65,19 @@ namespace B.Services
                     await _dbContext.SaveChangesAsync();
                 }                  
             }
+        }
+
+        public async Task<IEnumerable<DivisionModel>> FindData(string findString)
+        {
+            var divisions = _dbContext.Divisions.AsQueryable();
+            var divisionList = (await divisions.ToListAsync()).Where<Division>(x=>x.Name.Equals(findString));
+            List<DivisionModel> divisionModelList = divisionList.Select(division => _mapper.Map<DivisionModel>(division)).ToList();
+            if (!divisionModelList.Any())
+                return divisionModelList;
+            List<Status> statuses = (await GetStatuses(divisionModelList.Count())).ToList();
+            for (int i = 0; i < divisionModelList.Count(); i++)
+                divisionModelList[i].Status = statuses[i];
+            return divisionModelList;
         }
 
         private List<DivisionModel> FileParse()

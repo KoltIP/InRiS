@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migration\" />
+    <Compile Remove="Data\Migration\**" />
+    <Content Remove="Data\Migration\**" />
+    <EmbeddedResource Remove="Data\Migration\**" />
+    <None Remove="Data\Migration\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,5 +29,7 @@
     <PackageReference Include="Npgsql" Version="7.0.0-rc.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-rc.2" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

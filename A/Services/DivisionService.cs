@@ -1,4 +1,4 @@
-﻿using A.Models;
+﻿using A.Services.Models;
 
 namespace A.Services
 {

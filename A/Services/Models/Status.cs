@@ -1,4 +1,4 @@
-﻿namespace A.Models
+﻿namespace A.Services.Models
 {
     public enum Status
     {
