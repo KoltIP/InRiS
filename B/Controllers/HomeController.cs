@@ -28,21 +28,33 @@ namespace B.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        [Route("")]
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var models =  await divisionService.GetAllData();
             return View(models);
         }
 
-        [HttpGet]
-        [Route("Synchronization")]
+        [HttpGet("Update")]
+        public async Task<IEnumerable<DivisionModel>> Update()
+        {
+            var models = await divisionService.GetAllData();
+            return models;
+        }
+
+        [HttpGet("Synchronization")]
         public async Task<IActionResult> Synchronization()
         {
-            await divisionService.Synchronization();
-            var models = await divisionService.GetAllData();                        
+            await divisionService.Synchronization();            
+            var models = await divisionService.GetAllData();            
             return View("Index", models);
-        }        
+        }
+
+        [HttpPost("{search}")]
+        public async Task<IActionResult> Find([FromRoute]string search)
+        {
+            var models = await divisionService.FindData(search);
+            return View("Index", models);
+        }
     }
 }

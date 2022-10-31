@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using A.Services;
-using A.Models;
 using Microsoft.AspNetCore.Cors;
+using A.Services.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace A.Controllers
 {

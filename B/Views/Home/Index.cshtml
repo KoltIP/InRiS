@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<B.Models.DivisionModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Division List ";
 }
+
+<script>
+    function find() {
+
+    }
+</script>
+
 <script>
     setTimeout(function () {
         window.location.reload(1);
@@ -9,6 +16,16 @@
 </script>
 
 <div>
+    <div>
+        <form class="" asp-action="Find" asp-route-search="A">
+            <input name="search" value="" placeholder="Искать здесь..." type="search">
+            <a class="btn btn-sm btn-success" onclick="find()">
+                <i class="fa-solid fa-plus">
+                    Найти
+                </i>
+            </a>
+        </form>
+    </div>
     @if (Model.Any())
     {
         <table class="table">
@@ -51,7 +68,7 @@
 
     <a asp-action="Synchronization" class="btn btn-sm btn-success">
         <i class="fa-solid fa-plus">
-            Synchronization
+            Синхронизовать
         </i>
     </a>
 </div>
