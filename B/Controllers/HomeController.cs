@@ -35,6 +35,12 @@ namespace B.Controllers
             return View(models);
         }
 
+        [HttpGet("ShowSortResult")]
+        public async Task<IActionResult> ShowSortResult(IEnumerable<DivisionModel> models)
+        {
+            return View("Index",models);
+        }
+
         [HttpGet("Update")]
         public async Task<IEnumerable<DivisionModel>> Update()
         {
@@ -50,11 +56,14 @@ namespace B.Controllers
             return View("Index", models);
         }
 
+
         [HttpPost("Find/{search}")]
-        public async Task<IEnumerable<DivisionModel>> Find([FromRoute]string search)
+        public async Task<IEnumerable<DivisionModel>> Find([FromRoute] string search)
         {
             var models = await divisionService.FindData(search);
             return models;
         }
+
+
     }
 }
