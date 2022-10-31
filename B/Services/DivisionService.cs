@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using B.Data.Context;
-using B.Data.Entities;
 using B.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace B.Services
 {
@@ -11,34 +12,39 @@ namespace B.Services
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public DivisionService(ApplicationDbContext dbContext, IMapper mapper)
+        public DivisionService(ApplicationDbContext dbContext, IMapper mapper, IHttpClientFactory httpClientFactory)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IEnumerable<DivisionModel>> GetAllData()
         {
             var divisions = _dbContext.Divisions.AsQueryable();
-
-            var divisionList = await divisions.ToListAsync();
-            IEnumerable<DivisionModel> divisionModelList = divisionList.Select(division => _mapper.Map<DivisionModel>(division));
-
+            var divisionList = await divisions.ToListAsync();            
+            List<DivisionModel> divisionModelList = divisionList.Select(division => _mapper.Map<DivisionModel>(division)).ToList();
+            if (!divisionModelList.Any())
+                return divisionModelList;
+            List<Status> statuses = (await GetStatuses(divisionModelList.Count())).ToList();
+            for (int i = 0; i < divisionModelList.Count(); i++)            
+                divisionModelList[i].Status = statuses[i];            
             return divisionModelList;
         }
 
-
-
-        public async Task<DivisionModel> AddDivisions(DivisionModel model)
+        private async Task<IEnumerable<Status>> GetStatuses(int count)
         {
-            var division = _mapper.Map<Data.Entities.Division>(model);
-
-            await _dbContext.Divisions.AddAsync(division);
-            _dbContext.SaveChanges();
-
-            return _mapper.Map<DivisionModel>(division);
-        }
+            var httpClient = _httpClientFactory.CreateClient();
+            string url = $"{Settings.ApiRoot}/status/{count}";
+            var response = await httpClient.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(content);            
+            var statuses = JsonSerializer.Deserialize<IEnumerable<Status>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Status>();
+            return statuses;
+        }      
 
         public async Task Synchronization()
         {
