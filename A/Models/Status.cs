@@ -1,4 +1,4 @@
-﻿namespace B.Data.Entities
+﻿namespace A.Models
 {
     public enum Status
     {

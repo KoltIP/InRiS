@@ -21,7 +21,9 @@ namespace B.Models
     {
         public DivisionProfile()
         {
-            CreateMap<DivisionModel, Data.Entities.Division>();
+            CreateMap<DivisionModel, Data.Entities.Division>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.ParentName));
         }
     }
 
@@ -31,7 +33,6 @@ namespace B.Models
         {
             CreateMap<SerializeDivisionModel, DivisionModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.ParentName));
         }
     }

@@ -1,5 +1,6 @@
 using A;
 using A.Configurations.Cors;
+using A.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddDivisionService();
 
 var services = builder.Services;
 

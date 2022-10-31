@@ -1,6 +1,4 @@
-﻿
-
-namespace A.Configurations.Cors
+﻿namespace A.Configurations.Cors
 {
     public static class CorsConfiguration
     {
@@ -18,7 +16,6 @@ namespace A.Configurations.Cors
                                       policy.WithOrigins(AllowedHosts);
                                   });
             });
-
             return services;
         }
 

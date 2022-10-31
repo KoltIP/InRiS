@@ -2,27 +2,22 @@
 using B.Models;
 using B.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace B.Controllers
 {
-   [Route("")]
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<HomeController> _logger;
         private readonly IDivisionService divisionService;
 
-        public HomeController(IMapper mapper, ILogger<HomeController> logger, IDivisionService divisionService, IHttpClientFactory httpClientFactory)
+        public HomeController(IMapper mapper, ILogger<HomeController> logger, IDivisionService divisionService)
         {
             this.mapper = mapper;
             _logger = logger;
-            this.divisionService = divisionService;
-            _httpClientFactory = httpClientFactory;
+            this.divisionService = divisionService;           
         }
 
        
@@ -46,8 +41,8 @@ namespace B.Controllers
         public async Task<IActionResult> Synchronization()
         {
             await divisionService.Synchronization();
-            var models = await divisionService.GetAllData();
+            var models = await divisionService.GetAllData();                        
             return View("Index", models);
-        }       
+        }        
     }
 }
