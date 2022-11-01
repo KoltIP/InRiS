@@ -40,23 +40,26 @@ namespace B.Controllers
         public async Task<IActionResult> Synchronization()
         {
             await divisionService.Synchronization();            
-            var models = await divisionService.GetAllData();            
-            return View("Index", models);
+            var models = await divisionService.GetAllData();
+            IEnumerable<DivisionResponse> response = models.Select(model => mapper.Map<DivisionResponse>(model));
+            return View("Index", response);
         }
 
         [HttpGet("Update")]
-        public async Task<IEnumerable<DivisionModel>> Update()
+        public async Task<IEnumerable<DivisionResponse>> Update()
         {
             var models = await divisionService.GetAllData();
-            return models;
+            IEnumerable<DivisionResponse> response = models.Select(model => mapper.Map<DivisionResponse>(model));
+            return response;
         }
 
 
         [HttpGet("Find/{search}")]
-        public async Task<IEnumerable<DivisionModel>> Find([FromRoute] string search)
+        public async Task<IEnumerable<DivisionResponse>> Find([FromRoute] string search)
         {
             var models = await divisionService.FindData(search);
-            return models;
+            IEnumerable<DivisionResponse> response = models.Select(model => mapper.Map<DivisionResponse>(model));
+            return response;
         }
 
 
