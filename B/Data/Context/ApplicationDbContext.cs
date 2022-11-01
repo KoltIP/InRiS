@@ -9,7 +9,6 @@ namespace B.Data.Context
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : base(option)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
