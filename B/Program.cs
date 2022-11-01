@@ -1,25 +1,22 @@
 using B;
+using B.Configuration.Db;
 using B.Configuration.Mapper;
-using B.Data.Context;
+using B.Configuration.Versioning;
 using B.Middleware;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAppVersion();
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient();
 
-var services = builder.Services;
+builder.AddAppDbOption();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddAppAutoMapper();
 
-services.AddAppAutoMapper();
-
-services.AddAppServices();
+builder.Services.AddAppServices();
 
 var app = builder.Build();
 
