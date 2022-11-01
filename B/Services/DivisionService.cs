@@ -45,6 +45,7 @@ namespace B.Services
                 throw new Exception(content);            
             var statuses = JsonSerializer.Deserialize<IEnumerable<Status>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Status>();
             return statuses;
+           
         }      
 
         public async Task Synchronization()

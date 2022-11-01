@@ -1,6 +1,7 @@
 using B;
 using B.Configuration.Mapper;
 using B.Data.Context;
+using B.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,10 +23,13 @@ services.AddAppServices();
 
 var app = builder.Build();
 
+app.UseMiddleware<Middleware>();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseStatusCodePages();
