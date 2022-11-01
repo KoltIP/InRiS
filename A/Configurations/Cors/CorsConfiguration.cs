@@ -11,7 +11,7 @@
                                   {
                                       policy
                                             .WithOrigins(Settings.AllowedHosts)
-                                            .WithMethods("GET")
+                                            .AllowAnyMethod()
                                             .AllowAnyHeader();
                                   });
             });
