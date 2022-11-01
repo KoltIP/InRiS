@@ -1,36 +1,84 @@
-﻿@model IEnumerable<B.Models.DivisionModel>;
+﻿@model List<B.Models.DivisionModel>;
 
 @{
     ViewData["Title"] = "Division List";
 }
+@*<script>   
+    function sort(str) 
+    {
+        if (str != "") {
+            $.get("Find/" + str,
+                {
+                    search: str.value
+                },
+                function(data)
+                {
+                    let table = document.getElementById("content");
+                    while (table.firstChild) 
+                        table.removeChild(table.firstChild);                    
+                    let length = data.length;
+                    for (let i = 0; i < length; i++) 
+                        $("#content").append('<tr><th>' + data[i].name + '</th><th>' + data[i].status + '</th><th>' + data[i].parentName + '</th></tr>');                    
+                });
+        }
+        else
+            window.location.reload();
+    }
+</script>*@
 
-<script>   
-    function find(str) {
-        $.get("Find/" + str,
-            {
-                search: str.value
-    
-    },
-    function(data) {
-        data.map()
-      });
-};    
-</script>
 
 @*<script>
     setTimeout(function () {
-        $.post("Update",
-            {},
-            function(data) {
-                @Model = data;
-      });
-    }, 3000);
+        window.location.reload();
+      }
+    , 3000);
 </script>*@
+
+
+<script>
+    function update()
+    {
+        $.get("Update",
+            {},
+            function(data)
+            {
+                let table = document.getElementById("content");
+                while (table.firstChild)               
+                    table.removeChild(table.firstChild);
+                let length = data.length;
+                for (let i = 0; i < length; i++)                 
+                    $("#content").append('<tr><th>'+data[i].name+'</th><th>'+data[i].status+'</th><th>'+data[i].parentName+'</th></tr>');                
+            });
+    }
+    let timerId = setInterval(update, 3000);
+
+    function sort(str) 
+    {
+        setTimeout(() => { clearInterval(timerId); }, 1000);
+        if (str != "") {
+            $.get("Find/" + str,
+                {
+                    search: str.value
+                },
+                function(data)
+                {
+                    let table = document.getElementById("content");
+                    while (table.firstChild) 
+                        table.removeChild(table.firstChild);                    
+                    let length = data.length;
+                    for (let i = 0; i < length; i++) 
+                        $("#content").append('<tr><th>' + data[i].name + '</th><th>' + data[i].status + '</th><th>' + data[i].parentName + '</th></tr>');                    
+                });
+        }
+        else
+            window.location.reload();
+    }
+</script>
 
 <div>
     <div>
-        <form>
-            <input name="search" value="" placeholder="Искать здесь..." type="search" onchange="find(this.value)">
+        <form onsubmit="return false">
+            <input name="search" value="" placeholder="Искать здесь..." type="search" onchange="sort(this.value); return false;" autocomplete="off">
         </form>
     </div>
     @if (Model.Any())
@@ -39,19 +87,17 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)         
-                        
+                        Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Status)                        
+                       Status
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ParentName)       
+                        ParentName
                     </th>                    
                 </tr>
             </thead>
-            <tbody>
-
+            <tbody id="content">
                 @foreach (var item in Model)
                 {
                     <tr>

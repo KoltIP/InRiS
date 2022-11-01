@@ -32,20 +32,8 @@ namespace B.Controllers
         public async Task<IActionResult> Index()
         {
             var models =  await divisionService.GetAllData();
-            return View(models);
-        }
-
-        [HttpGet("ShowSortResult")]
-        public async Task<IActionResult> ShowSortResult(IEnumerable<DivisionModel> models)
-        {
-            return View("Index",models);
-        }
-
-        [HttpGet("Update")]
-        public async Task<IEnumerable<DivisionModel>> Update()
-        {
-            var models = await divisionService.GetAllData();
-            return models;
+            IEnumerable<DivisionResponse> response = models.Select(model => mapper.Map<DivisionResponse>(model));
+            return View(response);
         }
 
         [HttpGet("Synchronization")]
@@ -56,8 +44,15 @@ namespace B.Controllers
             return View("Index", models);
         }
 
+        [HttpGet("Update")]
+        public async Task<IEnumerable<DivisionModel>> Update()
+        {
+            var models = await divisionService.GetAllData();
+            return models;
+        }
 
-        [HttpPost("Find/{search}")]
+
+        [HttpGet("Find/{search}")]
         public async Task<IEnumerable<DivisionModel>> Find([FromRoute] string search)
         {
             var models = await divisionService.FindData(search);

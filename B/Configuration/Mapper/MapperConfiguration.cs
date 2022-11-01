@@ -6,7 +6,7 @@ namespace B.Configuration.Mapper
     {
         public static IServiceCollection AddAppAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(DivisionModelProfile), typeof(DivisionProfile), typeof(ParseDivisionProfile));
+            services.AddAutoMapper(typeof(DivisionModelProfile), typeof(DivisionProfile), typeof(ParseDivisionProfile), typeof(DivisionResponseProfile));
             return services;
         }
     }

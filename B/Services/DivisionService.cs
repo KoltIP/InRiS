@@ -70,7 +70,7 @@ namespace B.Services
         public async Task<IEnumerable<DivisionModel>> FindData(string findString)
         {
             var divisions = _dbContext.Divisions.AsQueryable();
-            var divisionList = (await divisions.ToListAsync()).Where<Division>(x=>x.Name.Equals(findString));
+            var divisionList = (await divisions.ToListAsync()).Where<Division>(x=>x.Name.ToLower().Contains(findString.ToLower()));
             List<DivisionModel> divisionModelList = divisionList.Select(division => _mapper.Map<DivisionModel>(division)).ToList();
             if (!divisionModelList.Any())
                 return divisionModelList;
