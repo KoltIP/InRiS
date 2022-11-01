@@ -6,8 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace A.Controllers
 {
-    [Route("api/status")]
+    [Route("api/v1/status")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class StatusController : ControllerBase
     {
         private readonly ILogger<StatusController> logger;
