@@ -1,38 +1,8 @@
-﻿@model List<B.Models.DivisionModel>;
+﻿@model IEnumerable<B.Models.DivisionResponse>;
 
 @{
     ViewData["Title"] = "Division List";
 }
-@*<script>   
-    function sort(str) 
-    {
-        if (str != "") {
-            $.get("Find/" + str,
-                {
-                    search: str.value
-                },
-                function(data)
-                {
-                    let table = document.getElementById("content");
-                    while (table.firstChild) 
-                        table.removeChild(table.firstChild);                    
-                    let length = data.length;
-                    for (let i = 0; i < length; i++) 
-                        $("#content").append('<tr><th>' + data[i].name + '</th><th>' + data[i].status + '</th><th>' + data[i].parentName + '</th></tr>');                    
-                });
-        }
-        else
-            window.location.reload();
-    }
-</script>*@
-
-
-@*<script>
-    setTimeout(function () {
-        window.location.reload();
-      }
-    , 3000);
-</script>*@
 
 
 <script>
