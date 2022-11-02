@@ -7,6 +7,7 @@ using System.Diagnostics;
 namespace B.Controllers
 {
     [Route("")]
+    [ApiVersion("1.0")]
     public class HomeController : Controller
     {
         private readonly IMapper mapper;
