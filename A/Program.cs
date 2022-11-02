@@ -1,7 +1,6 @@
 using A.Configurations.Cors;
 using A.Configurations.Versioning;
 using A.Services;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +24,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+
+app.UseAppCors();
+
+app.UseAuthorization();
+
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseAppCors();
 
 app.MapControllers();
 

@@ -7,18 +7,25 @@
 
 <script>
 
+    function displayData(data) {
+        let table = document.getElementById("content");
+        while (table.firstChild)
+            table.removeChild(table.firstChild);
+        let length = data.length;
+        for (let i = 0; i < length; i++) {
+            if (data[i].parentName == null || data[i].parentName == '')
+                data[i].parentName = '[absent]';
+            $("#content").append('<tr><td>' + data[i].name + '</td><td>' + data[i].status + '</td><td>' + data[i].parentName + '</td></tr>');
+        }
+    }
+
     function update()
     {
         $.get("Update",
             {},
             function(data)
             {
-                let table = document.getElementById("content");
-                while (table.firstChild)               
-                    table.removeChild(table.firstChild);
-                let length = data.length;
-                for (let i = 0; i < length; i++)                 
-                    $("#content").append('<tr><th>'+data[i].name+'</th><th>'+data[i].status+'</th><th>'+data[i].parentName+'</th></tr>');                
+                displayData(data);
             });
     }
 
@@ -29,20 +36,15 @@
                     search: str.value
                 },
                 function(data) {
-                    let table = document.getElementById("content");
-                    while (table.firstChild)
-                        table.removeChild(table.firstChild);
-                    let length = data.length;
-                    for (let i = 0; i < length; i++)
-                        $("#content").append('<tr><th>' + data[i].name + '</th><th>' + data[i].status + '</th><th>' + data[i].parentName + '</th></tr>');
+                    displayData(data);
                 });
     }
 
     let timerId = setInterval(update, 3000);
-
+    
     function find(str) 
     {
-        clearTimeout(timerId);
+        clearInterval(timerId);        
         if (str != "")
             sort(str)
         else
@@ -52,12 +54,25 @@
         }
     }
 
+    function clearSearch()
+    {
+        let searchInput = document.getElementById("search");
+        searchInput.value="";
+        find(searchInput.value);
+    }
+
 </script>
 
-<div>
-    <div style="text-align:right">
-            <input name="search" value="" placeholder="Search here..." type="search" onchange="find(this.value); return false;" autocomplete="off">      
+<div>    
+    <div class="hstack gap-5">
+        <input id="search" class="form-control me-auto" value="" placeholder="Search here..." type="search" autocomplete="off" oninput="find(this.value);return false;">
+        <button type="button" class="btn btn-outline-secondary" style="font-weight:700; font-size:medium; width: 100px;" onclick="clearSearch()">
+            Reset
+            <img src="https://img.icons8.com/windows/15/000000/cancel.png" />
+        </button>
     </div>
+    
+
     @if (Model.Any())
     {
         <table class="table">
@@ -78,13 +93,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="font-weight:700">
+                        <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td style="font-weight:700">
+                        <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
-                        <td style="font-weight:700">
+                        <td>
                             @Html.DisplayFor(modelItem => item.ParentName)
                         </td>                   
                     </tr>
@@ -96,11 +111,8 @@
     {
         <h2>Здесь пока пусто</h2>
     }
-
-    <a asp-action="Synchronization"  class="btn btn-secondary">
-        <i class="fa-solid fa-plus">
-            Synchronization
-        </i>
-    </a>
-
+    <div style="text-align:right;font-weight:700">        
+        <a asp-action="Synchronization" class="btn btn-secondary">Synchronization <img width="15" height="15" src="https://img.icons8.com/ios-glyphs/30/000000/synchronize.png" alt="Synchronization icon" /></a>
+    </div>
+    
 </div>
