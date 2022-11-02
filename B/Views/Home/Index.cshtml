@@ -7,6 +7,7 @@
 
 <script>
 
+
     function displayData(data) {
         let table = document.getElementById("content");
         while (table.firstChild)
@@ -19,29 +20,30 @@
         }
     }
 
+
     function update()
     {
         $.get("Update",
-            {},
-            function(data)
-            {
-                displayData(data);
-            });
-    }
+        {},
+        function(data)
+        {
+            displayData(data);
+        });
+    }    
 
     function sort(str)
     {
        $.get("Find/" + str,
-                {
-                    search: str.value
-                },
-                function(data) {
-                    displayData(data);
-                });
-    }
-
-    let timerId = setInterval(update, 3000);
+       {
+            search: str.value
+       },
+       function(data) 
+       {
+            displayData(data);
+       });
+    }   
     
+ 
     function find(str) 
     {
         clearInterval(timerId);        
@@ -50,22 +52,28 @@
         else
         { 
             update();
-            let timerId = setInterval(update, 3000);
+            timerId = setInterval(update, 3000);
         }
     }
+
 
     function clearSearch()
     {
         let searchInput = document.getElementById("search");
-        searchInput.value="";
+        searchInput.value = "";
         find(searchInput.value);
     }
+
+
+    const timeout = 3000;
+    let timerId = setInterval(update, timeout);
+
 
 </script>
 
 <div>    
     <div class="hstack gap-5">
-        <input id="search" class="form-control me-auto" value="" placeholder="Search here..." type="search" autocomplete="off" oninput="find(this.value);return false;">
+        <input id="search" class="form-control me-auto" value="" placeholder="Search here..." type="text" autocomplete="off" oninput="find(this.value);return false;">
         <button type="button" class="btn btn-outline-secondary" style="font-weight:700; font-size:medium; width: 100px;" onclick="clearSearch()">
             Reset
             <img src="https://img.icons8.com/windows/15/000000/cancel.png" />
