@@ -41,7 +41,7 @@ namespace B.Controllers
         public async Task<IActionResult> Synchronization()
         {
             await divisionService.Synchronization();            
-            var models = await divisionService.GetAllData();
+            var models = await divisionService.GetAllData();            
             IEnumerable<DivisionResponse> response = models.Select(model => mapper.Map<DivisionResponse>(model));
             return View("Index", response);
         }
